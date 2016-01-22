@@ -77,10 +77,10 @@ var StopWatch = React.createClass({
     return (
       <TouchableHighlight
         underlayColor="#ccc"
-        style={styles.button}
+        style={this.state.timeElapsed ? styles.button : styles.resetButton}
         onPress={this.state.running ? this.handleLapPress : this.handleResetPress }
         >
-        <Text style={styles.buttonText}>
+        <Text style={this.state.timeElapsed ? styles.buttonText : styles.resetText}>
           {this.state.running ? 'Lap': 'Reset'}
         </Text>
       </TouchableHighlight>
@@ -96,6 +96,7 @@ var StopWatch = React.createClass({
   handleResetPress: function() {
     this.setState({
       timeElapsed: null,
+      runningElapse:null,
       laps:[]
     });
   },
@@ -154,7 +155,18 @@ var styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'white',
+    borderColor: '#888',
     borderWidth: 1,
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  resetButton: {
+    backgroundColor: '#ccc',
+    borderColor: '#aaa',
+    borderWidth: 0,
     height: 80,
     width: 80,
     borderRadius: 40,
@@ -168,6 +180,10 @@ var styles = StyleSheet.create({
     borderColor: '#CC0000'
   },
   buttonText: {
+    fontSize: 16
+  },
+  resetText: {
+    color: '#999',
     fontSize: 16
   },
   lap: {
