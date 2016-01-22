@@ -1,13 +1,13 @@
-# stopwatch-reactnative
+#Stopwatch-reactnative
 
-##getting started
+##Getting started
 
 ```
 	> git clone git@github.com:chiho13/stopwatch-reactnative.git
 	> cd stopwatch
 ```
 
-###environment setup
+###Environment setup - iOS
 
   Download Xcode 7.2
 
