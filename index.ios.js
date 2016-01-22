@@ -46,7 +46,7 @@ var StopWatch = React.createClass({
   );
 },
   laps: function() {
-    return this.state.laps.map(function(time, index){
+    return (this.state.laps.map(function(time, index){
       return (
       <View style={styles.lap}>
         <Text style={styles.lapText}>
@@ -57,7 +57,7 @@ var StopWatch = React.createClass({
         </Text>
       </View>
     );
-    })
+  })).reverse();
   },
   startStopButton: function() {
     var style = this.state.running ? styles.stopButton : styles.startButton;
@@ -101,22 +101,26 @@ var StopWatch = React.createClass({
     });
   },
   handleStartPress: function() {
-    if(this.state.running) {
+    var startTime = new Date().getTime();
+    this.setState({startTime: new Date().getTime()});
+    if(!this.state.running) {
+      this.interval = setInterval(() => {
+      this.setState({
+        timeElapsed: new Date().getTime() - this.state.startTime,
+        runningElapse: new Date().getTime() - startTime,
+        running:true
+      });
+    }, 30)
+  } else {
       clearInterval(this.interval);
-      this.setState({running:false});
+      this.setState({
+        running:false
+      });
       return
     }
 
-    var startTime = new Date();
-    this.setState({startTime: new Date()})
 
-    this.interval = setInterval(() => {
-    this.setState({
-      timeElapsed: new Date() - this.state.startTime,
-      runningElapse: new Date() - startTime,
-      running:true
-    });
-  }, 30);
+
   }
 });
 
